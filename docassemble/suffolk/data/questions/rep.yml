@@ -1,0 +1,32 @@
+metadata:
+  title: Appointment of Representative
+  short: Appointment
+---
+question: When is your hearing date?
+fields:
+  - Hearing: hearing_date
+    datatype: date
+---
+mandatory: True
+code: |
+  if hearing_date < today().plus(weeks=2):
+    kick_out
+---
+event: kick_out
+question: |
+  We cannot represent you because your hearing is too soon.
+---
+mandatory: True
+question: Here is the document you signed.
+attachment:
+  docx template file: Appointment_of_Representative.docx
+---
+question: What is your name?
+fields:
+  - Name: client
+---
+code: |
+  advocate = "Quinten Steenhuis"
+---
+question: Sign your name
+signature: client_signature
